@@ -5,7 +5,6 @@ $w.onReady(function () {
     // Write your JavaScript here
 
     // To select an element by ID use: $w('#elementID')
-
+    console.log("hellooo")
     // Click 'Preview' to run your code
-    console.log("hello")
 });
