@@ -4,5 +4,40 @@
 
 $w.onReady(function () {
   // Initial load of all FAQs
-  
+  wixData.query('Faq')
+    .find()
+    .then((res) => {
+      $w('#faqRepeater').data = res.items;
+    });
+
+  // Filter FAQs by search input (question only)
+  $w('#searchInput').onInput(() => {
+    const query = $w('#searchInput').value.toLowerCase();
+
+    wixData.query('Faq')
+      .contains('question', query)
+      .find()
+      .then((res) => {
+        $w('#faqRepeater').data = res.items;
+      });
+  });
+
+  // Accordion toggle setup
+  $w('#faqRepeater').onItemReady(($item, itemData) => {
+  // Set content manually
+  $item('#faqQuestion').text = itemData.question;
+  $item('#faqAnswer').text = itemData.answer;
+
+  // Start with answerBox collapsed
+  $item('#answerBox').collapse();
+
+  // Toggle on icon click
+  $item('#toggleIcon').onClick(() => {
+    const isCollapsed = $item('#answerBox').collapsed;
+    isCollapsed
+      ? $item('#answerBox').expand()
+      : $item('#answerBox').collapse();
+  });
+});
+
 });
