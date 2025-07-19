@@ -1,10 +1,44 @@
 // API Reference: https://www.wix.com/velo/reference/api-overview/introduction
 // “Hello, World!” Example: https://learn-code.wix.com/en/article/hello-world
 
+import wixData from 'wix-data';
+
 $w.onReady(function () {
-    // Write your JavaScript here
+  // Initial load of all FAQs
+  wixData.query('Faq')
+    .find()
+    .then((res) => {
+      $w('#faqRepeater').data = res.items;
+    });
 
-    // To select an element by ID use: $w('#elementID')
+  // Filter FAQs by search input (question only)
+  $w('#searchInput').onInput(() => {
+    const query = $w('#searchInput').value.toLowerCase();
 
-    // Click 'Preview' to run your code
+    wixData.query('Faq')
+      .contains('question', query)
+      .find()
+      .then((res) => {
+        $w('#faqRepeater').data = res.items;
+      });
+  });
+
+  // Accordion toggle setup
+  $w('#faqRepeater').onItemReady(($item, itemData) => {
+  // Set content manually
+  $item('#faqQuestion').text = itemData.question;
+  $item('#faqAnswer').text = itemData.answer;
+
+  // Start with answerBox collapsed
+  $item('#answerBox').collapse();
+
+  // Toggle on icon click
+  $item('#toggleIcon').onClick(() => {
+    const isCollapsed = $item('#answerBox').collapsed;
+    isCollapsed
+      ? $item('#answerBox').expand()
+      : $item('#answerBox').collapse();
+  });
+});
+
 });
