@@ -30,6 +30,7 @@ $w.onReady(function () {
 
   // Start with answerBox collapsed
   $item('#answerBox').collapse();
+  console.log("ans collapse");
 
   // Toggle on icon click
   $item('#toggleIcon').onClick(() => {
