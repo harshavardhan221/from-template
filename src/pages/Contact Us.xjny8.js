@@ -22,24 +22,42 @@ $w.onReady(function () {
         $w('#faqRepeater').data = res.items;
       });
   });
-
-  // Accordion toggle setup
+// toggle on click
   $w('#faqRepeater').onItemReady(($item, itemData) => {
-  // Set content manually
+  // Set text
   $item('#faqQuestion').text = itemData.question;
   $item('#faqAnswer').text = itemData.answer;
 
-  // Start with answerBox collapsed
+  // Collapse answer initially
   $item('#answerBox').collapse();
-  console.log("ans collapse");
 
-  // Toggle on icon click
+  // ✅ Initial style for collapsed state
+  $item('#questionBox').style.backgroundImage = ""; // remove gradient
+  $item('#questionBox').style.backgroundColor = "#1C4EFF"; // solid blue
+
+  // Toggle logic
   $item('#toggleIcon').onClick(() => {
     const isCollapsed = $item('#answerBox').collapsed;
-    isCollapsed
-      ? $item('#answerBox').expand()
-      : $item('#answerBox').collapse();
+
+    if (isCollapsed) {
+      // Expand answerBox
+      $item('#answerBox').expand()
+        .then(() => {
+          // Gradient background
+          $item('#questionBox').style.backgroundColor = ""; // remove solid
+          $item('#questionBox').style.backgroundImage = "linear-gradient(to right, #AC7EF4 20%, #FFB957 85%, #FFCD61 100%)";
+        });
+    } else {
+      // Collapse answerBox
+      $item('#answerBox').collapse()
+        .then(() => {
+          // Solid blue background again
+          $item('#questionBox').style.backgroundImage = ""; // remove gradient
+          $item('#questionBox').style.backgroundColor = "#1C4EFF";
+        });
+    }
   });
 });
+
 
 });
