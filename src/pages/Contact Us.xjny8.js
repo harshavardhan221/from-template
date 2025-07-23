@@ -37,27 +37,29 @@ $w.onReady(function () {
 
   // Toggle logic
   $item('#toggleIcon').onClick(() => {
-    const isCollapsed = $item('#answerBox').collapsed;
+  const isCollapsed = $item('#answerBox').collapsed;
 
-    if (isCollapsed) {
-      // Expand answerBox
-      $item('#answerBox').expand()
-        .then(() => {
-          // Gradient background
-          $item('#questionBox').style.backgroundColor = ""; // remove solid
-          $item('#questionBox').style.backgroundImage = "linear-gradient(to right, #AC7EF4 20%, #FFB957 85%, #FFCD61 100%)";
-        });
-    } else {
-      // Collapse answerBox
-      $item('#answerBox').collapse()
-        .then(() => {
-          // Solid blue background again
-          $item('#questionBox').style.backgroundImage = ""; // remove gradient
-          $item('#questionBox').style.backgroundColor = "#1C4EFF";
-        });
-    }
-  });
+  if (isCollapsed) {
+    // Expand + Apply gradient background
+    $item('#answerBox').expand()
+      .then(() => {
+        console.log("Expanded: applying gradient");
+        $item('#questionBox').style.backgroundColor = ""; // clear solid
+        $item('#questionBox').style.backgroundImage = "linear-gradient(to right, #AC7EF4 20%, #FFB957 85%, #FFCD61 100%)";
+      })
+      .catch((err) => console.error("Expand error:", err));
+  } else {
+    // Collapse + Apply solid blue
+    $item('#answerBox').collapse()
+      .then(() => {
+        console.log("Collapsed: applying solid blue");
+        $item('#questionBox').style.backgroundImage = ""; // clear gradient
+        $item('#questionBox').style.backgroundColor = "#1C4EFF";
+      })
+      .catch((err) => console.error("Collapse error:", err));
+  }
 });
+
 
 
 });
