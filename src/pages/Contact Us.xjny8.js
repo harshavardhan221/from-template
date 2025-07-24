@@ -59,6 +59,14 @@ $w.onReady(function () {
           });
       }
     });
+
+    $item('#toggleIcon2').onClick(() => {
+      $item('#answerBox').collapse()
+        .then(() => {
+          $item('#questionBoxGradient').hide();
+          $item('#questionBoxBlue').show();
+        });
+    });
   });
 
 });
