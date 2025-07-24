@@ -22,40 +22,43 @@ $w.onReady(function () {
         $w('#faqRepeater').data = res.items;
       });
   });
-$w('#faqRepeater').onItemReady(($item, itemData) => {
-  // Set text
+
+  
+  // Accordion toggle setup
+  // Accordion toggle setup
+  $w('#faqRepeater').onItemReady(($item, itemData) => {
+  // Set content manually
   $item('#faqQuestion').text = itemData.question;
   $item('#faqAnswer').text = itemData.answer;
 
-  // Collapse answer initially
+  // Start with answerBox collapsed 
   $item('#answerBox').collapse();
+   console.log("Answer collapsed initially");
 
-  // ✅ Initial style for collapsed state
-  $item('#questionBox').style.backgroundImage = ""; // remove gradient
-  $item('#questionBox').style.backgroundColor = "#1C4EFF"; // solid blue
+    // ✅ Show blue box initially, hide gradient box
+    $item('#questionBoxBlue').show();
+    $item('#questionBoxGradient').hide();
 
-  // Toggle logic
-  $item('#toggleIcon').onClick(() => {
-    const isCollapsed = $item('#answerBox').collapsed;
+// Toggle on icon click
+    $item('#toggleIcon').onClick(() => {
+      const isCollapsed = $item('#answerBox').collapsed;
 
-    if (isCollapsed) {
-      // Expand answerBox
-      $item('#answerBox').expand()
-        .then(() => {
-          // Gradient background
-          $item('#questionBox').style.backgroundColor = ""; // remove solid
-          $item('#questionBox').style.backgroundImage = "linear-gradient(to right, #AC7EF4 20%, #FFB957 85%, #FFCD61 100%)";
-        });
-    } else {
-      // Collapse answerBox
-      $item('#answerBox').collapse()
-        .then(() => {
-          // Solid blue background again
-          $item('#questionBox').style.backgroundImage = ""; // remove gradient
-          $item('#questionBox').style.backgroundColor = "#1C4EFF";
-        });
-    }
+      if (isCollapsed) {
+        // Expand + switch to gradient
+        $item('#answerBox').expand()
+          .then(() => {
+            $item('#questionBoxBlue').hide();
+            $item('#questionBoxGradient').show();
+          });
+      } else {
+        // Collapse + switch to blue
+        $item('#answerBox').collapse()
+          .then(() => {
+            $item('#questionBoxGradient').hide();
+            $item('#questionBoxBlue').show();
+          });
+      }
+    });
   });
-});
 
 });
