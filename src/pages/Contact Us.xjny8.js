@@ -27,44 +27,44 @@ $w.onReady(function () {
   // Accordion toggle setup
   // Accordion toggle setup
   $w('#faqRepeater').onItemReady(($item, itemData) => {
-  // Set content manually
+  // Set collapse-header-gradient manually
   $item('#faqQuestion').text = itemData.question;
   $item('#faqAnswer').text = itemData.answer;
 
-  // Start with answerBox collapsed 
-  $item('#answerBox').collapse();
+  // Start with content collapsed 
+  $item('#content').collapse();
    console.log("Answer collapsed initially");
 
     // ✅ Show blue box initially, hide gradient box
-    $item('#questionBoxBlue').expand();
-    $item('#questionBoxGradient').collapse();
+    $item('#collapse-header-blue').expand();
+    $item('#collapse-header-gradient').collapse();
 
 // Toggle on icon click
     $item('#toggleIcon').onClick(() => {
-      const isCollapsed = $item('#answerBox').collapsed;
+      const isCollapsed = $item('#content').collapsed;
 
       if (isCollapsed) {
         // Expand + switch to gradient
-        $item('#answerBox').expand()
+        $item('#content').expand()
           .then(() => {
-            $item('#questionBoxBlue').collapse();
-            $item('#questionBoxGradient').expand();
+            $item('#collapse-header-blue').collapse();
+            $item('#collapse-header-gradient').expand();
           });
       } else {
         // Collapse + switch to blue
-        $item('#answerBox').collapse()
+        $item('#content').collapse()
           .then(() => {
-            $item('#questionBoxGradient').collapse();
-            $item('#questionBoxBlue').expand();
+            $item('#collapse-header-gradient').collapse();
+            $item('#collapse-header-blue').expand();
           });
       }
     });
 
     $item('#toggleIcon2').onClick(() => {
-      $item('#answerBox').collapse()
+      $item('#content').collapse()
         .then(() => {
-          $item('#questionBoxGradient').collapse();
-          $item('#questionBoxBlue').expand();
+          $item('#collapse-header-gradient').collapse();
+          $item('#collapse-header-blue').expand();
         });
     });
   });
