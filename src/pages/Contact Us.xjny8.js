@@ -36,8 +36,8 @@ $w.onReady(function () {
    console.log("Answer collapsed initially");
 
     // ✅ Show blue box initially, hide gradient box
-    $item('#questionBoxBlue').show();
-    $item('#questionBoxGradient').hide();
+    $item('#questionBoxBlue').expand();
+    $item('#questionBoxGradient').collapse();
 
 // Toggle on icon click
     $item('#toggleIcon').onClick(() => {
@@ -47,15 +47,15 @@ $w.onReady(function () {
         // Expand + switch to gradient
         $item('#answerBox').expand()
           .then(() => {
-            $item('#questionBoxBlue').hide();
-            $item('#questionBoxGradient').show();
+            $item('#questionBoxBlue').collapse();
+            $item('#questionBoxGradient').expand();
           });
       } else {
         // Collapse + switch to blue
         $item('#answerBox').collapse()
           .then(() => {
-            $item('#questionBoxGradient').hide();
-            $item('#questionBoxBlue').show();
+            $item('#questionBoxGradient').collapse();
+            $item('#questionBoxBlue').expand();
           });
       }
     });
